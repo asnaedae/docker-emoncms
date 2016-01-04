@@ -8,7 +8,7 @@ RUN git clone https://github.com/emoncms/event.git /var/www/html/Modules/event
 RUN git clone https://github.com/emoncms/app.git /var/www/html/Modules/app
 RUN git clone https://github.com/emoncms/usefulscripts.git /usr/local/bin/emoncms_usefulscripts
 
-RUN apt-get -y update && apt-get install -y php5-mcrypt php5-curl redis-server
+RUN apt-get -y update && apt-get install -y php5-mcrypt php5-curl
 
 # Add db setup script
 ADD run.sh /run.sh
