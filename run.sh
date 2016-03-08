@@ -1,4 +1,16 @@
 #!/bin/bash 
+#install emoncms
+INDEX="/var/www/html/settings.php"
+if [[ ! -d $INDEX ]]; then
+  rm -rf /var/www/html
+  git clone https://github.com/emoncms/emoncms.git /var/www/html
+  git clone https://github.com/emoncms/event.git /var/www/html/Modules/event
+  git clone https://github.com/emoncms/app.git /var/www/html/Modules/app
+  git clone https://github.com/emoncms/usefulscripts.git /usr/local/bin/emoncms_usefulscripts
+fi
+
+touch /var/www/html/emoncms.log
+chmod 666 /var/www/html/emoncms.log
 
 # Check that user has supplied a MYSQL_PASSWORD
 if [[ -z $MYSQL_PASSWORD ]]; then 
@@ -25,10 +37,13 @@ fi
 
 # Update the settings file for emoncms
 EMON_DIR="/var/www/html"
-cp "$EMON_DIR/default.settings.php" "$EMON_DIR/settings.php"
-sed -i "s/_DB_USER_/emoncms/" "$EMON_DIR/settings.php"
-sed -i "s/_DB_PASSWORD_/$MYSQL_PASSWORD/" "$EMON_DIR/settings.php"
-sed -i "s/localhost/127.0.0.1/" "$EMON_DIR/settings.php"
+SETPHP="$EMON_DIR/settings.php"
+if [[ ! -d $SETPHP ]]; then
+  cp "$EMON_DIR/default.settings.php" "$EMON_DIR/settings.php"
+  sed -i "s/_DB_USER_/emoncms/" "$EMON_DIR/settings.php"
+  sed -i "s/_DB_PASSWORD_/$MYSQL_PASSWORD/" "$EMON_DIR/settings.php"
+  sed -i "s/localhost/127.0.0.1/" "$EMON_DIR/settings.php"
+fi
 
 echo "==========================================================="
 echo "The username and password for the emoncms user is:"
