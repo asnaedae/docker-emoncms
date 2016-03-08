@@ -31,7 +31,7 @@ RUN touch /var/www/html/emoncms.log
 RUN chmod 666 /var/www/html/emoncms.log
 
 # Expose them as volumes for mounting by host
-VOLUME ["/etc/mysql", "/var/lib/mysql", "/var/lib/phpfiwa", "/var/lib/phpfina", "/var/lib/phptimeseries"]
+VOLUME ["/etc/mysql", "/var/lib/mysql", "/var/lib/phpfiwa", "/var/lib/phpfina", "/var/lib/phptimeseries", "/var/www/emoncms"]
 
 EXPOSE 80 3306
 
