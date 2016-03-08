@@ -21,8 +21,8 @@ RUN mkdir /var/lib/phpfina
 RUN mkdir /var/lib/phptimeseries
 RUN mkdir /var/lib/timestore
 
-touch /var/www/html/emoncms.log
-chmod 666 /var/www/html/emoncms.log
+RUN touch /var/www/html/emoncms.log
+RUN chmod 666 /var/www/html/emoncms.log
 
 # Expose them as volumes for mounting by host
 VOLUME ["/etc/mysql", "/var/lib/mysql", "/var/lib/phpfiwa", "/var/lib/phpfina", "/var/lib/phptimeseries", "/var/www/html"]
