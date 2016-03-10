@@ -7,6 +7,8 @@ if [[ ! -d $INDEX ]]; then
   git clone https://github.com/emoncms/event.git /var/www/html/Modules/event
   git clone https://github.com/emoncms/app.git /var/www/html/Modules/app
   git clone https://github.com/emoncms/usefulscripts.git /usr/local/bin/emoncms_usefulscripts
+  git clone https://github.com/emoncms/dashboard.git /var/www/html/Modules/dashboard
+  git clone https://github.com/emoncms/device.git /var/www/html/Modules/device
 fi
 
 touch /var/www/html/emoncms.log
