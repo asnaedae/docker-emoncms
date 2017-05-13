@@ -36,7 +36,7 @@ ADD db.sh /db.sh
 RUN chmod 755 /*.sh
 
 # Add MySQL config
-ADD my.cnf /etc/mysql/conf.d/my.cnf
+ADD my.cnf /etc/mysql/my.cnf
 
 # Add supervisord configuration file
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
