@@ -12,6 +12,8 @@ if [[ ! -d $INDEX ]]; then
   cp /var/www/html/default.settings.php /var/www/html/settings.php
 fi
 
+chmod 644 /etc/mysql/my.cnf
+
 touch /var/www/html/emoncms.log
 chmod 666 /var/www/html/emoncms.log
 
@@ -27,6 +29,7 @@ fi
 MYSQL_HOME="/var/lib/mysql"
 if [[ ! -d $MYSQL_HOME/mysql ]]; then
   echo "=> Installing MySQL ..."
+  chmod -R 777 /var/lib/mysql
   mysql_install_db # > /dev/null 2>&1
 else
   echo "=> Using an existing volume of MySQL"
