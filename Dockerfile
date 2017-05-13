@@ -32,7 +32,6 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # Add db setup script
 ADD run.sh /run.sh
-ADD db.sh /db.sh
 RUN chmod 755 /*.sh
 
 # Add MySQL config
