@@ -1,7 +1,7 @@
 # Dockerfile for base image for emoncms
 FROM ubuntu:14.04
 
-MAINTAINER snoopy
+MAINTAINER paultbarrett
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update
@@ -55,5 +55,5 @@ VOLUME ["/etc/mysql", "/var/lib/mysql", "/var/lib/phpfiwa", "/var/lib/phpfina", 
 
 EXPOSE 80 3306
 
-WORKDIR /var/www/emoncms
+WORKDIR /var/www/html
 CMD ["/run.sh"]
