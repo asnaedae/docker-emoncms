@@ -1,6 +1,6 @@
 #!/bin/bash 
 #install emoncms
-INDEX="/var/www/html/settings.php"
+INDEX="/var/www/html/default.settings.php"
 if [[ ! -d $INDEX ]]; then
   rm -rf /var/www/html
   git clone https://github.com/emoncms/emoncms.git /var/www/html
@@ -17,7 +17,7 @@ chmod 666 /var/www/html/emoncms.log
 # Check that user has supplied a MYSQL_PASSWORD
 if [[ -z $MYSQL_PASSWORD ]]; then 
   # Uncomment the line below to use a random password
-  # MYSQL_PASSWORD="$(pwgen -s 12 1)"
+  #MYSQL_PASSWORD="$(pwgen -s 12 1)"
   echo 'Ensure that you have supplied a password using the -e MYSQL_PASSWORD="mypass"'
   exit 1;
 fi
