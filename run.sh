@@ -1,6 +1,6 @@
 #!/bin/bash 
 #install emoncms
-INDEX="/var/www/html/default.settings.php"
+INDEX="/var/www/html/settings.php"
 if [[ ! -d $INDEX ]]; then
   rm -rf /var/www/html
   git clone https://github.com/emoncms/emoncms.git /var/www/html
@@ -9,6 +9,7 @@ if [[ ! -d $INDEX ]]; then
   git clone https://github.com/emoncms/usefulscripts.git /usr/local/bin/emoncms_usefulscripts
   git clone https://github.com/emoncms/dashboard.git /var/www/html/Modules/dashboard
   git clone https://github.com/emoncms/device.git /var/www/html/Modules/device
+  cp /var/www/html/default.settings.php /var/www/html/settings.php
 fi
 
 touch /var/www/html/emoncms.log
@@ -34,7 +35,26 @@ fi
 # Run db scripts only if there's no existing emoncms database
 EMON_HOME="/var/lib/mysql/emoncms"
 if [[ ! -d $EMON_HOME ]]; then
-  /db.sh
+
+    # Start MySQL Server
+    service mysql start > /dev/null 2>&1
+
+    sleep 10
+
+    # Initialize the db and create the user 
+    echo "CREATE DATABASE emoncms;" >> init.sql
+    echo "CREATE USER 'emoncms'@'localhost' IDENTIFIED BY '$MYSQL_PASSWORD';" >> init.sql
+    echo "GRANT ALL ON emoncms.* TO 'emoncms'@'localhost';" >> init.sql
+    echo "flush privileges;" >> init.sql
+    mysql < init.sql
+
+    # Cleanup
+    rm init.sql
+
+    # Stop MySQL Server
+    sleep 10
+    service mysql stop > /dev/null 2>&1
+    
 fi
 
 # Update the settings file for emoncms
