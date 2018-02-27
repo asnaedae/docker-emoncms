@@ -5,7 +5,7 @@ MAINTAINER paultbarrett
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update
-RUN apt-get -yq install supervisor apache2 mysql-server mysql-client php5 libapache2-mod-php5 php5-mysql php5-curl php-pear \
+RUN apt-get -yq install supervisor apache2 mysql-client php5 libapache2-mod-php5 php5-mysql php5-curl php-pear \
     php5-dev php5-mcrypt php5-json git-core redis-server build-essential ufw ntp pwgen
 
 # Install pecl dependencies
@@ -35,7 +35,7 @@ ADD run.sh /run.sh
 RUN chmod 755 /*.sh
 
 # Add MySQL config
-ADD my.cnf /etc/mysql/my.cnf
+#ADD my.cnf /etc/mysql/my.cnf
 
 # Add supervisord configuration file
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
@@ -50,9 +50,9 @@ RUN touch /var/www/html/emoncms.log
 RUN chmod 666 /var/www/html/emoncms.log
 
 # Expose them as volumes for mounting by host
-VOLUME ["/etc/mysql", "/var/lib/mysql", "/var/lib/phpfiwa", "/var/lib/phpfina", "/var/lib/phptimeseries", "/var/www/html"]
+VOLUME ["/var/lib/phpfiwa", "/var/lib/phpfina", "/var/lib/phptimeseries", "/var/www/html"]
 
-EXPOSE 80 3306
+EXPOSE 80 
 
 WORKDIR /var/www/html
 CMD ["/run.sh"]
